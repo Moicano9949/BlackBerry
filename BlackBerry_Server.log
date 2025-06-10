@@ -1,0 +1,50 @@
+2025-06-10 07:08:51,006 - INFO - Par RSA generado exitosamente.
+2025-06-10 07:08:51,007 - INFO - Servidor escuchando en 0.0.0.0:9949
+2025-06-10 07:12:08,371 - INFO - Par RSA generado exitosamente.
+2025-06-10 07:12:08,372 - INFO - Servidor escuchando en 0.0.0.0:9949
+2025-06-10 07:12:36,566 - INFO - Par RSA generado exitosamente.
+2025-06-10 07:12:36,567 - INFO - Servidor escuchando en 0.0.0.0:9949
+2025-06-10 07:12:58,055 - INFO - Par RSA generado exitosamente.
+2025-06-10 07:12:58,056 - INFO - Servidor escuchando en 0.0.0.0:9949
+2025-06-10 07:15:39,276 - INFO - Nueva conexión desde 127.0.0.1:49934
+2025-06-10 07:15:39,360 - INFO - Sesión #0 establecida con 127.0.0.1:49934
+2025-06-10 07:15:44,876 - INFO - Enviando comando al cliente 0: ls
+2025-06-10 07:15:47,887 - INFO - Enviando comando al cliente 0: banner
+2025-06-10 07:15:55,251 - INFO - Enviando comando al cliente 0: help
+2025-06-10 07:15:57,571 - INFO - Enviando comando al cliente 0: system
+2025-06-10 07:15:59,895 - INFO - Enviando comando al cliente 0: netinfo
+2025-06-10 07:16:07,765 - INFO - Enviando comando al cliente 0: ifconfig
+2025-06-10 07:16:24,577 - INFO - Enviando comando al cliente 0: iwconfig
+2025-06-10 07:16:26,981 - INFO - Enviando comando al cliente 0: help
+2025-06-10 07:16:40,289 - INFO - Enviando comando al cliente 0: scan 192.168.1.235:22
+2025-06-10 07:16:56,083 - INFO - Enviando comando al cliente 0: scan 192.168.1.235/24
+2025-06-10 07:17:28,222 - INFO - Enviando comando al cliente 0: cwd
+2025-06-10 07:17:31,420 - INFO - Enviando comando al cliente 0: pwd
+2025-06-10 07:18:32,131 - INFO - Par RSA generado exitosamente.
+2025-06-10 07:18:32,133 - INFO - Servidor escuchando en 0.0.0.0:9949
+2025-06-10 07:18:32,902 - INFO - Nueva conexión desde 127.0.0.1:60250
+2025-06-10 07:18:32,992 - INFO - Sesión #0 establecida con 127.0.0.1:60250
+2025-06-10 07:32:56,145 - INFO - Enviando comando al cliente 0: ls
+2025-06-10 07:33:26,963 - INFO - Par RSA generado exitosamente.
+2025-06-10 07:33:26,964 - INFO - Servidor escuchando en 0.0.0.0:9949
+2025-06-10 07:33:27,653 - INFO - Nueva conexión desde 127.0.0.1:34320
+2025-06-10 07:33:27,748 - INFO - Sesión #0 establecida con 127.0.0.1:34320
+2025-06-10 07:44:47,965 - INFO - Par RSA generado exitosamente.
+2025-06-10 07:44:47,966 - INFO - Servidor escuchando en 0.0.0.0:9949
+2025-06-10 07:44:48,010 - INFO - Nueva conexión desde 127.0.0.1:52218
+2025-06-10 07:44:48,072 - INFO - Sesión #0 establecida con 127.0.0.1:52218
+2025-06-10 07:44:55,218 - INFO - Enviando comando al cliente 0: ls
+2025-06-10 07:44:57,128 - INFO - Enviando comando al cliente 0: banner
+2025-06-10 07:45:02,026 - INFO - Enviando comando al cliente 0: help
+2025-06-10 07:45:11,422 - INFO - Enviando comando al cliente 0: system
+2025-06-10 07:58:03,466 - INFO - Par RSA generado exitosamente.
+2025-06-10 07:58:03,467 - INFO - Servidor escuchando en 0.0.0.0:9949
+2025-06-10 07:59:01,485 - INFO - Nueva conexión desde 127.0.0.1:39958
+2025-06-10 07:59:01,570 - INFO - Sesión #0 establecida con 127.0.0.1:39958
+2025-06-10 08:03:00,048 - INFO - Enviando comando al cliente 0: ls
+2025-06-10 08:05:25,714 - INFO - Par RSA generado exitosamente.
+2025-06-10 08:05:25,715 - INFO - Servidor escuchando en 0.0.0.0:9949
+2025-06-10 08:05:26,175 - INFO - Nueva conexión desde 127.0.0.1:49498
+2025-06-10 08:05:26,243 - INFO - Sesión #0 establecida con 127.0.0.1:49498
+2025-06-10 08:05:34,612 - INFO - Enviando comando al cliente 0: clear
+2025-06-10 08:05:35,169 - INFO - Enviando comando al cliente 0: ls
