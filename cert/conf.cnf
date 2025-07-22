@@ -6,11 +6,11 @@ distinguished_name = dn
 req_extensions     = req_ext
 
 [ dn ]
-C  = JP
-ST = Tokyo-to
-L  = Tokyo
-O  = NSST
-OU = NetSpy Secure Transport (TLS/AES-GCM)
+C  = RU
+ST = Moscow
+L  = Moscow
+O  = BB-ST(TLS/AES-GCM)
+OU = BlackBerry Secure Transport (TLS/AES-GCM)
 CN = localhost
 
 [ req_ext ]
@@ -19,3 +19,4 @@ subjectAltName = @alt_names
 [ alt_names ]
 DNS.1 = localhost
 IP.1  = 127.0.0.1
+IP.2 = 192.168.4.1

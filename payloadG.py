@@ -4,7 +4,7 @@ import re
 import subprocess
 import sys
 
-TEMPLATE_PATH = "CNetSpy.py"
+TEMPLATE_PATH = "BlackBerryC.py"
 
 def generate_payload():
     if not os.path.isfile(TEMPLATE_PATH):
@@ -19,7 +19,7 @@ def generate_payload():
         print("Puerto inválido")
         sys.exit(1)
 
-    salida = input("Nombre de salida (ENTER para 'payload.py'): ").strip() or "payload.py"
+    salida = input("Nombre de salida (ENTER para 'Payload-CBlackBerry.py'): ").strip() or "Payload-CBlackBerry.py"
 
     # Leer el archivo original
     with open(TEMPLATE_PATH, "r") as f:

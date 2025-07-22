@@ -15,13 +15,13 @@ from pathlib import Path
 # ---------------- Configuración ----------------
 LISTEN_HOST, LISTEN_PORT = '0.0.0.0', 9948
 TARGET_HOST, TARGET_PORT = '127.0.0.1', 9949
-CERTFILE, KEYFILE = 'proxy.crt', 'proxy.key'
+CERTFILE, KEYFILE = 'cert/BlackBerry_Server.crt', 'cert/BlackBerry_Server.key'
 BUFFER_SIZE = 4096
 MAX_ACTIVE_IPS = 10
 MAX_CONN_PER_SEC = 5
 BLACKLIST_DURATION = 3600  # segundos
 REPORT_INTERVAL = 23 * 3600  # 23 horas
-LOG_FILE = 'BlackBerryTLSProxy.log'
+LOG_FILE = 'logs/BlackBerryTLSProxy.log'
 
 # ------------- Configuración de Logs -------------
 logging.basicConfig(

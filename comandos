@@ -1,2 +1,0 @@
-nuitka --standalone --onefile --mingw64 NetSpy.py
-ssh -R 9949:localhost:9949 serveo.net
