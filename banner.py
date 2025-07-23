@@ -1,5 +1,9 @@
+# BlackBerry - Banners
+# Copyright (c) 2025 Moicano9949
+# Licencia: Uso no comercial, con permiso de modificación y redistribución
+# Ver archivo LICENSE para condiciones completas
+
 #sabado 29 de maro del 2025
-#BlackBerry banners
 import random
 
 banner1 = r"""

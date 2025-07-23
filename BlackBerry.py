@@ -1,5 +1,11 @@
 #!/usr/bin/env python3
 #lunes 21 de julio de 2025
+
+# BlackBerry - Herramienta de administración remota
+# Copyright (c) 2025 Moicano9949
+# Licencia: Uso no comercial, con permiso de modificación y redistribución
+# Ver archivo LICENSE para condiciones completas
+
 """
 BlackBerry - Servidor de administración remota
 

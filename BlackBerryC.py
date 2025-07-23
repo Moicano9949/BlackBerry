@@ -1,3 +1,8 @@
+# BlackBerry - Herramienta de administración remota
+# Copyright (c) 2025 Moicano9949
+# Licencia: Uso no comercial, con permiso de modificación y redistribución
+# Ver archivo LICENSE para condiciones completas
+
 import socket
 import ssl
 import os

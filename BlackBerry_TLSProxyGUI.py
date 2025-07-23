@@ -1,4 +1,10 @@
 #!/usr/bin/env python3
+
+# BlackBerry - BlackBerry TLS Proxy GUI
+# Copyright (c) 2025 Moicano9949
+# Licencia: Uso no comercial, con permiso de modificación y redistribución
+# Ver archivo LICENSE para condiciones completas
+
 import tkinter as tk
 from tkinter import ttk, scrolledtext, messagebox
 import threading

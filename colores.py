@@ -1,4 +1,7 @@
-#colores
+# BlackBerry - Colores
+# Copyright (c) 2025 Moicano9949
+# Licencia: Uso no comercial, con permiso de modificación y redistribución
+# Ver archivo LICENSE para condiciones completas
 
 # Colores básicos
 BLACK   = "\033[30m"
