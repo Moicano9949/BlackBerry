@@ -1,7 +1,5 @@
 # BlackBerry(Net)
 
-![Logo de BlackBerry](file_00000000ee34622f93dc7fc91766870a_conversation_id=680be191-1d6c-800d-afee-f53b5669f483&message_id=7b1e12db-2a84-41e3-9368-a162739b0293.png)
-
 BlackBerry es una herramienta de monitoreo y control remoto, diseñada para fines educativos.
 
 ## Características Principales
@@ -18,7 +16,7 @@ BlackBerry es una herramienta de monitoreo y control remoto, diseñada para fine
 - **Soporte para Conexiones Globales:**  
   Se recomienda el uso de [Serveo](https://serveo.net/) para exponer el puerto local, permitiendo así conexiones remotas desde cualquier dispositivo con conexion.
    ```bash
-  ssh -R 9949:localhost:9949 serveo.net
+  ssh -R 9948:localhost:9948 serveo.net
 
 ## Instalación e Inicio
 
@@ -33,4 +31,4 @@ BlackBerry es una herramienta de monitoreo y control remoto, diseñada para fine
     python3 BlackBerry.py
     BlackBerry> help
 # BlackBerry
-# BlackBerry
+# BlackBerry V1.0
