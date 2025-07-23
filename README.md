@@ -23,8 +23,8 @@ BlackBerry es una herramienta de monitoreo y control remoto, diseñada para fine
 1. **Clonar el Repositorio:**
 
    ```bash
-   git clone https://github.com/Moicano9949/BlackBerryV1.git
-   cd BlackBerryV1
+   git clone https://github.com/Moicano9949/BlackBerry.git
+   cd BlackBerry
 
 2. **Ejecuta BlackBerry(server):**
     ```bash
